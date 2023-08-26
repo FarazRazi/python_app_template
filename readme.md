@@ -1,4 +1,4 @@
-# mlops-test
+# MLOPS
 
 ## setup
 
