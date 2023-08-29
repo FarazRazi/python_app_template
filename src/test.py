@@ -1,4 +1,3 @@
-# test for add function
 import unittest
 from main import add, sub, mul, div
 

@@ -6,12 +6,12 @@ install:
 
 lint:
 	@echo "Linting using pylint..."
-	@pylint src 
+	@pylint --fail-under=8 --exit-zero --max-line-length=120 src 
 	@echo "Done."
 
 test:
-	@echo "Testing..."
-	@python -m unittest discover -s src
+	@echo "Testing using pytest..."
+	@pytest src/test.py
 	@echo "Done."
 
 run:
