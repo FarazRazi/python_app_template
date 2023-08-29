@@ -1,9 +1,3 @@
-activate:
-	@echo "Activating virtual environment..."
-	@python.exe -m venv venv
-	@venv\Scripts\activate
-	@echo "Done."
-
 install: 
 	@echo "Installing..."
 	@python.exe -m pip install --upgrade pip
