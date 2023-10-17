@@ -1,9 +1,15 @@
 pipeline{
     agent any
+    enviorment{
+        VERSION = "1.0"
+        // SERVER_CREDENTIALS = credentials("5dd29b7b-9d1f-4c3a-9aa4-07b0eef71b84")
+    }
     stages{
         stage("build"){
             steps{
                 echo "Build Stage is executing"
+                echo "Version is ${VERSION}"
+                make install
             }
         }
         stage("Deploy"){
