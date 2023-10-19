@@ -1,20 +1,51 @@
 pipeline{
     agent any
-    enviorment{
-        VERSION = "1.0"
-        // SERVER_CREDENTIALS = credentials("5dd29b7b-9d1f-4c3a-9aa4-07b0eef71b84")
+    parameters{
+        string(name: 'VERSION', defaultValue: '1.0', description: 'added for demo to the class')
+        choice(name: 'BUILD_VERSION', choices:['1.0','1.1','1.2'], description: 'this is drop down list')
+        booleanParam(name: 'DEPLOY', defaultValue: true, description: 'added to enable or disable test cases')
     }
+    environment{
+        VERSION='1.0'
+        SERVER_CREDENTIALS=credentials('5dd29b7b-9d1f-4c3a-9aa4-07b0eef71b84')
+     }
     stages{
+        stage("initialization"){
+            steps{
+                script{
+                    gv = load "helper.groovy"
+                }
+            }
+        }
         stage("build"){
             steps{
-                echo "Build Stage is executing"
-                echo "Version is ${VERSION}"
-                make install
+                script{
+                    gv.buildit()
+                }
+                //echo "Build Stage is executing"
+                //echo "Building version ${VERSION}"
+            }
+        }
+        stage( "test"){
+            steps{
+                echo "Test Stage is executing"
+                echo "Building version ${VERSION}"
             }
         }
         stage("Deploy"){
+            when{
+                    expression{
+                        params.DEPLOY == true
+                    }
+                }
             steps{
-                echo "Deploy Stage is executing"
+                withCredentials(
+                    [
+                        usernamePassword(credentialsId:'5dd29b7b-9d1f-4c3a-9aa4-07b0eef71b84', usernameVariable:'USER', passwordVariable:'PWD')
+                    ]
+                ){
+                    echo "some script using the ${USER} created above"
+                }
             }
         }
     }
