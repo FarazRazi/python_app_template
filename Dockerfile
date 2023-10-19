@@ -1,3 +1,5 @@
+# To Build: docker build -t jenkins/jenkins_w_python_build-essential:latest .
+# To Run: docker run -p 8080:8080 -p 5000:5000 -d -v jenkins_home:/var/jenkins_home jenkins/jenkins_w_python_build-essential:latest
 
 FROM jenkins/jenkins:latest
 
